@@ -8,6 +8,7 @@ import numpy as np
 import pandas as pd
 from pprint import pprint
 from pydantic import BaseModel
+import os
 
 # Resample to 200x200 based on model
 TARGET_SIZE = (200, 200)
@@ -38,6 +39,12 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.mount("/images", StaticFiles(directory="images"), name="images")
+
+@app.get("/list")
+def list_images():
+    list = os.listdir("images")
+    list.remove(".gitignore")
+    return list
 
 @app.post("/upload")
 def import_file_post(file: UploadFile = File(...)):
