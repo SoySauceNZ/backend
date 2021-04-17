@@ -2,8 +2,10 @@
 
 Used to serve tensorflow model using API (model not included)
 
-Currently One functionality
-- POST `/predict` upload a image and get permutation
+- POST `/predict` get prediction for one image name and data
+- POST `/upload` upload a image
+- GET `/list` list all image filenames
+- GET `/images/:filename` Get image name
 
 ## Run
 ```bash
@@ -11,9 +13,9 @@ uvicorn main:app --reload
 ```
 
 ## Docs
-http://localhost:8000/docs
+https://api.severity.ml/docs
 
-## Endpoints
+## POST Endpoints
 
 POST `/upload` upload image using multipart/form-data
 - recommended size is 500x500 rgb image
