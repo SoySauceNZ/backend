@@ -1,4 +1,5 @@
 from fastapi import FastAPI, File, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from joblib import load
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 import tensorflow.keras as keras
@@ -13,13 +14,28 @@ TARGET_SIZE = (200, 200)
 # Load in model e.g. model.02-0.0273.h5
 model = keras.models.load_model('model.02-0.0273.h5')
 
-# Using defined scaler and mapping 
+# Using defined scaler and mapping
 sc = load('parser/std_scaler.bin')
 mapping = pd.read_csv('parser/datamapping.csv')
 mapping = {col: np.array(mapping[col]) for col in mapping.columns}
 pprint(mapping)
 
 app = FastAPI()
+
+origins = [
+    "http://crash.severity.ml",
+    "https://crash.severity.ml",
+    "http://localhost",
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.post("/upload")
