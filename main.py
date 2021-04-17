@@ -1,5 +1,6 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from joblib import load
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 import tensorflow.keras as keras
@@ -36,7 +37,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
+app.mount("/images", StaticFiles(directory="images"), name="images")
 
 @app.post("/upload")
 def import_file_post(file: UploadFile = File(...)):
