@@ -1,1 +1,6 @@
+numpy==1.19.5
+tensorflow==2.4.1
+joblib==1.0.1
+pandas==1.2.4
 fastapi==0.63.0
+pillow==8.2.0

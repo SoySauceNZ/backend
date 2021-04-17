@@ -1,16 +1,28 @@
 # Backend
 
-Used to serve tensorflow model using API
+Used to serve tensorflow model using API (model not included)
 
-Currently Two functionality
-- Get geojson cache of prepredicted data
-- Predict new data by uploading image and calling predication function
+Currently One functionality
+- POST `/predict` upload a image and get permutation
 
-## Predicted data
+## Run
+```bash
+uvicorn main:app --reload
+```
 
-TODO
+## Docs
+http://localhost:8000/docs
 
-## Upload image to predict
+## Endpoints
 
-1. Upload image to serverside
-2. Use image name and option to predict
+POST `/upload` upload image using multipart/form-data
+- recommended size is 500x500 rgb image
+POST `/predict` predict using 
+```json
+{
+  "filename": "string",
+  "weather": "string",
+  "brightness": 0,
+  "speed": 0
+}
+```
